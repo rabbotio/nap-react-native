@@ -27,7 +27,7 @@ export default class nap extends Component {
 
     this.state = {
       shareLinkContent: shareLinkContent,
-      isLogin: false,
+      isLoggedIn: false,
       name: ''
     }
   }
@@ -82,7 +82,7 @@ export default class nap extends Component {
             return response.text()
           }).then((text) => {
             console.log(text)
-            this.setState({ isLogin: true })
+            this.setState({ isLoggedIn: true })
           })
         }
       )
@@ -97,7 +97,7 @@ export default class nap extends Component {
       }
     }`
 
-    const UserProfile = ({ data }) => this.state.isLogin ?
+    const UserProfile = ({ data }) => this.state.isLoggedIn ?
       <View style={{ paddingLeft: 20, paddingTop: 20 }}>
         <Text>Name: {data.userOne && data.userOne.name}</Text>
       </View>
