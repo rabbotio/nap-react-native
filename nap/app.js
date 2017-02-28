@@ -114,7 +114,7 @@ export default class nap extends Component {
       <View style={styles.container}>
         <LoginButton
           onLoginFinished={this.onLoginFinished.bind(this)}
-          onLogoutFinished={() => alert("logout.")} />
+          onLogoutFinished={() => this.setState({ isLoggedIn: false }) } />
         <ViewWithData />
       </View>
     )
