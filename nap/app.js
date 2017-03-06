@@ -17,7 +17,7 @@ const {
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import DeviceInfo from 'react-native-device-info'
+import Installation from './Installation'
 
 export default class nap extends Component {
   constructor(props) {
@@ -32,8 +32,6 @@ export default class nap extends Component {
       isLoggedIn: false,
       name: ''
     }
-
-    alert(DeviceInfo.getUniqueID());
   }
 
   shareLinkWithShareDialog() {
@@ -116,9 +114,10 @@ export default class nap extends Component {
 
     return (
       <View style={styles.container}>
+        <Installation/>
         <LoginButton
           onLoginFinished={this.onLoginFinished.bind(this)}
-          onLogoutFinished={() => this.setState({ isLoggedIn: false }) } />
+          onLogoutFinished={() => this.setState({ isLoggedIn: false })} />
         <ViewWithData />
       </View>
     )
