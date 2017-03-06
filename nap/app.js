@@ -17,7 +17,7 @@ const {
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import Installation from './Installation'
+import Installation from './lib/Installation'
 
 export default class nap extends Component {
   constructor(props) {
