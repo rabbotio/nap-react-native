@@ -16,6 +16,7 @@ const {
 
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import UserProfile from './UserProfile'
 
 export default class nap extends Component {
   constructor(props) {
@@ -51,31 +52,12 @@ export default class nap extends Component {
   }
 
   render() {
-
-    const UserProfile = ({ data }) => this.state.isLoggedIn ?
-      <View style={{ paddingLeft: 20, paddingTop: 20 }}>
-        <Text>{data.user && data.user.name}</Text>
-      </View>
-      :
-      <View style={{ paddingLeft: 20, paddingTop: 20 }}>
-        <Text>Please log in</Text>
-      </View>
-
-    const ViewWithData = graphql(gql`
-    mutation {
-      loginWithFacebook(deviceInfo: "bar", accessToken: "EAABnTrZBSJyYBAKvcWAcAOUwt07ZCVxhCYQwKKWFZAwtOhsGYZAc7olL04W8eJTlxBeZCmxCQO9kYZA4kKtTD0zmZChhb5hEoZBl7JHT0Rx39uGP8ow2X9vGoTLFZCm4Dd0NFvH0qsHXNYinsOKjszfSJVOj3DZChv0MNszawr1le8O0ToqI3Ak9Jr8X3X6imEtvJ2q8ceeVh5Ux1rSbgypRQNRDjlredVXpIZD") {
-        user {
-          name
-        }
-      }
-    }`)(UserProfile)
-
     return (
       <View style={styles.container}>
+        <UserProfile />
         <LoginButton
           onLoginFinished={this.onLoginFinished.bind(this)}
           onLogoutFinished={() => this.setState({ isLoggedIn: false })} />
-        <ViewWithData />
       </View>
     )
   }
