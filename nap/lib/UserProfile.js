@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { compose, graphql, withApollo } from 'react-apollo'
+import { graphql, compose } from 'react-apollo'
 import React, { Component } from 'react'
 import {
   Text,
@@ -7,12 +7,33 @@ import {
 
 import NAPClient from './NAPClient'
 
-const UserProfile = ({ loginWithFacebook }) => {
-  return <Text>hmm</Text>
-}
+class UserProfile extends Component {
+  render() {
+    // At client
+    if (this.state && this.state.sessionToken) {
+      return <Text>{this.state.sessionToken}</Text>
+    }
 
-UserProfile.propTypes = {
-  loginWithFacebook: React.PropTypes.func.isRequired
+    if (typeof (window) !== 'undefined') {
+      this.props.mutate({
+        variables: {
+          deviceInfo: "foo",
+          accessToken: "EAABnTrZBSJyYBAKvcWAcAOUwt07ZCVxhCYQwKKWFZAwtOhsGYZAc7olL04W8eJTlxBeZCmxCQO9kYZA4kKtTD0zmZChhb5hEoZBl7JHT0Rx39uGP8ow2X9vGoTLFZCm4Dd0NFvH0qsHXNYinsOKjszfSJVOj3DZChv0MNszawr1le8O0ToqI3Ak9Jr8X3X6imEtvJ2q8ceeVh5Ux1rSbgypRQNRDjlredVXpIZD"
+        }
+      }).then(result => {
+
+        const sessionToken = result.data.loginWithFacebook.sessionToken
+
+        // Persist
+        NAPClient.willSetSessionToken(sessionToken)
+
+        // View
+        this.setState({ sessionToken })
+      })
+    }
+
+    return <Text>hmm?</Text>
+  }
 }
 
 const withData = gql`
@@ -25,13 +46,4 @@ mutation loginWithFacebook($deviceInfo: String, $accessToken: String!) {
 }
 `
 
-export default compose(graphql(withData, {
-  props: ({ mutate }) => ({
-    loginWithFacebook: (deviceInfo, accessToken) => mutate({
-      variables: {
-        deviceInfo: "react native",
-        accessToken: "EAABnTrZBSJyYBAKvcWAcAOUwt07ZCVxhCYQwKKWFZAwtOhsGYZAc7olL04W8eJTlxBeZCmxCQO9kYZA4kKtTD0zmZChhb5hEoZBl7JHT0Rx39uGP8ow2X9vGoTLFZCm4Dd0NFvH0qsHXNYinsOKjszfSJVOj3DZChv0MNszawr1le8O0ToqI3Ak9Jr8X3X6imEtvJ2q8ceeVh5Ux1rSbgypRQNRDjlredVXpIZD"
-      },
-    })
-  })
-})(Installation))
+export default graphql(withData)(UserProfile)

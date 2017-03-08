@@ -16,7 +16,8 @@ const {
 
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import UserProfile from './UserProfile'
+import UserProfile from './lib/UserProfile'
+import NAPClient from './lib/NAPClient'
 
 export default class nap extends Component {
   constructor(props) {
@@ -43,9 +44,9 @@ export default class nap extends Component {
         (data) => {
           // TODO : Handle bad token
           const access_token = data.accessToken.toString()
-          console.log('access_token :', access_token)
+          alert(access_token)
 
-          // TODO : Change state
+          NAPClient.willSetAccessToken(access_token)
         }
       )
     }

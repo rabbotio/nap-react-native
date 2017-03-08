@@ -2,11 +2,21 @@ import { AsyncStorage } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 
 class NAPClient {
-  static getSessionToken() {
+
+  static willGetSessionToken() {
     return AsyncStorage.getItem('sessionToken')
   }
-  static setSessionToken(value) {
+
+  static willSetSessionToken(value) {
     return AsyncStorage.setItem('sessionToken', value)
+  }
+
+  static willGetAccessToken() {
+    return AsyncStorage.getItem('accessToken')
+  }
+
+  static willSetAccessToken(value) {
+    return AsyncStorage.setItem('accessToken', value)
   }
 
   static get info() {

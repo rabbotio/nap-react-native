@@ -1,12 +1,12 @@
 import React from 'react'
-import { AppRegistry } from 'react-native'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { AppRegistry, AsyncStorage } from 'react-native'
 import App from '../app'
 
 import ApolloClient, { createNetworkInterface } from 'apollo-client'
 import { ApolloProvider } from 'react-apollo'
 
 import NAPClient from './NAPClient'
-import Installation from './Installation'
 
 const NAPApp = (options) => {
   // Default 
@@ -17,35 +17,60 @@ const NAPApp = (options) => {
 
     const networkInterface = createNetworkInterface(options)
 
-    // Authen
-    /*
-    networkInterface.use([{
-      applyMiddleware(req, next) {
-        if (!req.options.headers) {
-          req.options.headers = {}  // Create the header object if needed.
-        }
-
-        NAPClient.getSessionToken().then(sessionToken => {
-          // get the authentication token from local storage if it exists
-          const token = process.browser ? sessionToken : null
-          req.options.headers.authorization = token ? `Bearer ${token}` : null
-          alert(token)
-          next()
-        }, () => {
-          next()
-        })
-      }
-    }])*/
-
     const client = new ApolloClient({
-      networkInterface
+      networkInterface,
+      dataIdFromObject: r => r.id,
     })
 
+    // Persist
+    const reduxState = options.reduxState 
+    const persistedState = reduxState ? JSON.parse(reduxState) : {}
+
+    // Store
+    const store = createStore(
+      combineReducers({
+        // Other reducer
+        apollo: client.reducer(),
+      }),
+      persistedState, // initial state
+      compose(
+        applyMiddleware(client.middleware()),
+        // If you are using the devToolsExtension, you can add it here also
+        (typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined') ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f,
+      )
+    )
+
+    // Watcher
+    store.subscribe(() => {
+      AsyncStorage.setItem('reduxState', JSON.stringify(store.getState()))
+    })
+
+    // Authen
+    networkInterface.use([{
+      applyMiddleware(req, next) {
+        
+        // SSR
+        if (!process.browser) return
+
+        // No session
+        if (!sessionToken) {
+          next()
+          return
+        }
+
+        // get the authentication token from local storage if it exists
+        req.options.headers = req.options.headers || {}
+        req.options.headers.authorization = `Bearer ${sessionToken}`
+        next()
+      }
+    }])
+
     return (
-      <ApolloProvider client={client}>
-        <App device={NAPClient.info}/>
+      <ApolloProvider store={store} client={client}>
+        <App />
       </ApolloProvider>)
   }
+
   AppRegistry.registerComponent('nap', () => nap)
 }
 
