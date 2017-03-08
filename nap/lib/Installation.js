@@ -12,15 +12,15 @@ const Installation = ({ init }) => {
   if (typeof (window) !== 'undefined') {
     init(NAPClient.info)
       .then(result => {
-        NAPClient.sessionToken = result.data.init.record.sessionToken
+        return NAPClient.setSessionToken(result.data.init.record.sessionToken)
       }, error => {
-        debug.error(error)
+        alert(error)
       }).catch(err => {
-        debug.error(err)
+        alert(error)
       })
   }
 
-  return null
+  return <Text>hmm</Text>
 }
 
 Installation.propTypes = {

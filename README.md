@@ -24,3 +24,21 @@ npm i
 npm run setup
 react-native run-ios
 ```
+
+# Note
+```
+# Mutation
+mutation loginWithFacebook($deviceInfo: String, $accessToken: String!) {
+  loginWithFacebook(deviceInfo: $deviceInfo, accessToken: $accessToken) {
+    user {
+      name
+    }
+  }
+}
+
+# Variables
+{
+  "deviceInfo": "bar",
+  "accessToken": "FAABnTrZBSJyYBAKvcWAcAOUwt07ZCVxhCYQwKKWFZAwtOhsGYZAc7olL04W8eJTlxBeZCmxCQO9kYZA4kKtTD0zmZChhb5hEoZBl7JHT0Rx39uGP8ow2X9vGoTLFZCm4Dd0NFvH0qsHXNYinsOKjszfSJVOj3DZChv0MNszawr1le8O0ToqI3Ak9Jr8X3X6imEtvJ2q8ceeVh5Ux1rSbgypRQNRDjlredVXpIZD"
+}
+```

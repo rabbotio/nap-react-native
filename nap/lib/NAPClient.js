@@ -1,12 +1,12 @@
-import { AsyncStorage as localStorage } from 'react-native'
+import { AsyncStorage } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 
 class NAPClient {
-  static get sessionToken() {
-    return localStorage.getItem('sessionToken')
+  static getSessionToken() {
+    return AsyncStorage.getItem('sessionToken')
   }
-  static set sessionToken(value) {
-    localStorage.setItem('sessionToken', value)
+  static setSessionToken(value) {
+    return AsyncStorage.setItem('sessionToken', value)
   }
 
   static get info() {

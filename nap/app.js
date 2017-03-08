@@ -17,8 +17,6 @@ const {
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import Installation from './lib/Installation'
-
 export default class nap extends Component {
   constructor(props) {
     super(props)
@@ -34,29 +32,6 @@ export default class nap extends Component {
     }
   }
 
-  shareLinkWithShareDialog() {
-    var tmp = this
-    ShareDialog.canShow(this.state.shareLinkContent).then(
-      function (canShow) {
-        if (canShow) {
-          return ShareDialog.show(tmp.state.shareLinkContent)
-        }
-      }
-    ).then(
-      function (result) {
-        if (result.isCancelled) {
-          alert('Share cancelled')
-        } else {
-          alert('Share success with postId: '
-            + result.postId)
-        }
-      },
-      function (error) {
-        alert('Share fail with error: ' + error)
-      }
-      )
-  }
-
   onLoginFinished(error, result) {
     if (error) {
       alert("login has error: " + result.error)
@@ -69,23 +44,7 @@ export default class nap extends Component {
           const access_token = data.accessToken.toString()
           console.log('access_token :', access_token)
 
-          // TODO : Secure header?
-          access_token && fetch(`http://localhost:3000/auth/facebook/token`,
-            {
-              method: 'post',
-              headers: {
-                'Authorization': `Bearer ${access_token}`
-              }
-            }
-          ).then((response) => {
-            if (response.status >= 400) {
-              throw new Error("Bad response from server")
-            }
-            return response.text()
-          }).then((text) => {
-            console.log(text)
-            this.setState({ isLoggedIn: true })
-          })
+          // TODO : Change state
         }
       )
     }
@@ -93,28 +52,26 @@ export default class nap extends Component {
 
   render() {
 
-    const query = gql`{
-      userOne {
-        name
-      }
-    }`
-
     const UserProfile = ({ data }) => this.state.isLoggedIn ?
       <View style={{ paddingLeft: 20, paddingTop: 20 }}>
-        <Text>{data.userOne && data.userOne.name}</Text>
+        <Text>{data.user && data.user.name}</Text>
       </View>
       :
       <View style={{ paddingLeft: 20, paddingTop: 20 }}>
         <Text>Please log in</Text>
       </View>
 
-    const ViewWithData = graphql(query, {
-      options: { variables: { name: this.state.name } }
-    })(UserProfile)
+    const ViewWithData = graphql(gql`
+    mutation {
+      loginWithFacebook(deviceInfo: "bar", accessToken: "EAABnTrZBSJyYBAKvcWAcAOUwt07ZCVxhCYQwKKWFZAwtOhsGYZAc7olL04W8eJTlxBeZCmxCQO9kYZA4kKtTD0zmZChhb5hEoZBl7JHT0Rx39uGP8ow2X9vGoTLFZCm4Dd0NFvH0qsHXNYinsOKjszfSJVOj3DZChv0MNszawr1le8O0ToqI3Ak9Jr8X3X6imEtvJ2q8ceeVh5Ux1rSbgypRQNRDjlredVXpIZD") {
+        user {
+          name
+        }
+      }
+    }`)(UserProfile)
 
     return (
       <View style={styles.container}>
-        <Installation/>
         <LoginButton
           onLoginFinished={this.onLoginFinished.bind(this)}
           onLogoutFinished={() => this.setState({ isLoggedIn: false })} />

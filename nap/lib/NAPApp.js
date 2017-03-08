@@ -18,18 +18,24 @@ const NAPApp = (options) => {
     const networkInterface = createNetworkInterface(options)
 
     // Authen
+    /*
     networkInterface.use([{
       applyMiddleware(req, next) {
         if (!req.options.headers) {
           req.options.headers = {}  // Create the header object if needed.
         }
 
-        // get the authentication token from local storage if it exists
-        const token = process.browser ? NAPClient.sessionToken : null
-        req.options.headers.authorization = token ? `Bearer ${token}` : null
-        next()
+        NAPClient.getSessionToken().then(sessionToken => {
+          // get the authentication token from local storage if it exists
+          const token = process.browser ? sessionToken : null
+          req.options.headers.authorization = token ? `Bearer ${token}` : null
+          alert(token)
+          next()
+        }, () => {
+          next()
+        })
       }
-    }])
+    }])*/
 
     const client = new ApolloClient({
       networkInterface
@@ -37,7 +43,7 @@ const NAPApp = (options) => {
 
     return (
       <ApolloProvider client={client}>
-        <App />
+        <App device={NAPClient.info}/>
       </ApolloProvider>)
   }
   AppRegistry.registerComponent('nap', () => nap)
