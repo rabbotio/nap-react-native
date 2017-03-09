@@ -44,8 +44,8 @@ export default class nap extends Component {
         (data) => {
           // TODO : Handle bad token
           const access_token = data.accessToken.toString()
-          alert(access_token)
 
+          // TODO : use redux store
           NAPClient.willSetAccessToken(access_token)
         }
       )

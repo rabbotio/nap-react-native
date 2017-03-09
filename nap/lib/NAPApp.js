@@ -12,6 +12,9 @@ const NAPApp = (options) => {
   // Default 
   options.opts = options.opts || { credentials: 'same-origin' }
 
+  // Sessions
+  const sessionToken = options.sessionToken
+
   // Our app
   const nap = () => {
 
@@ -23,7 +26,7 @@ const NAPApp = (options) => {
     })
 
     // Persist
-    const reduxState = options.reduxState 
+    const reduxState = options.reduxState
     const persistedState = reduxState ? JSON.parse(reduxState) : {}
 
     // Store
