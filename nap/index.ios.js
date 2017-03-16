@@ -1,9 +1,8 @@
-import NAPApp from './lib/NAPApp'
-import { AsyncStorage } from 'react-native'
+import NAPApp from './components/NAPApp'
+import persist from './lib/persist'
+
 (async () => {
-  //const reduxState = await AsyncStorage.getItem('reduxState')
-  // TODO : keep in redux?
-  const sessionToken = await AsyncStorage.getItem('sessionToken')
+  const sessionToken = await persist.getItem('sessionToken')
   const nap = new NAPApp({
     uri: 'http://localhost:3000/graphql',
     //reduxState,

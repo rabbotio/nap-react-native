@@ -16,19 +16,15 @@ const {
 
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import UserProfile from './lib/UserProfile'
-import NAPClient from './lib/NAPClient'
+//import UserProfile from './components/UserProfile'
+import persist from './lib/persist'
+import device from './lib/device'
 
 export default class nap extends Component {
   constructor(props) {
     super(props)
-    const shareLinkContent = {
-      contentType: 'link',
-      contentUrl: 'https://www.facebook.com/',
-    }
 
     this.state = {
-      shareLinkContent: shareLinkContent,
       isLoggedIn: false,
       name: ''
     }
@@ -42,11 +38,11 @@ export default class nap extends Component {
     } else {
       AccessToken.getCurrentAccessToken().then(
         (data) => {
-          // TODO : Handle bad token
           const access_token = data.accessToken.toString()
-
-          // TODO : use redux store
-          NAPClient.willSetAccessToken(access_token)
+          this.setState({
+            ...this.state,
+            accessToken
+          })
         }
       )
     }
@@ -55,7 +51,7 @@ export default class nap extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <UserProfile />
+        <Text>{this.state.accessToken}</Text>
         <LoginButton
           onLoginFinished={this.onLoginFinished.bind(this)}
           onLogoutFinished={() => this.setState({ isLoggedIn: false })} />
