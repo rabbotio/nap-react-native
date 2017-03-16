@@ -25,8 +25,10 @@ const NAPApp = (options) => {
 
         // get the authentication token from local storage if it exists
         (async () => {
-          const token = await persist.willGetSessionToken()
-          req.options.headers.authorization = token ? `Bearer ${token}` : null
+          // await persist.willRemoveSessionToken()
+          const sessionToken = await persist.willGetSessionToken()
+          // alert('sessionToken:' + sessionToken)
+          req.options.headers.authorization = sessionToken ? `Bearer ${sessionToken}` : null
           next()
         })()
       }

@@ -8,21 +8,28 @@ import {
   Text,
 } from 'react-native'
 
-const UserProfile = ({ loading, user, errors }) => {
+const UserProfile = ({ loading, user, errors, accessToken }) => {
 
   if (errors && errors.length > 0) {
     console.log(JSON.stringify(errors)) // eslint-disable-line
   }
 
   if (loading) {
-    return <Text>Loading</Text>
+    return <Text>Loading...</Text>
   }
 
   if (user) {
-    return <Text>Welcome : {user.name}<Logout/></Text>
+    return <View>
+      <Text>Welcome : {user.name}</Text>
+      <Logout />
+    </View>
   }
 
-  return <View><Login/></View>
+  return <View>
+    <Text>Hm?</Text>
+    <Text>UserProfile : {accessToken}</Text>
+    <Login accessToken={accessToken} />
+  </View>
 }
 
 const userProfile = gql`

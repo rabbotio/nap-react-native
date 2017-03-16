@@ -1,5 +1,5 @@
 import DeviceInfo from 'react-native-device-info'
-module.exports.info = () => ({
+module.exports.info = () => JSON.stringify({
   // Devices
   deviceInfo: [
     DeviceInfo.getBrand(),

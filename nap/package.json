@@ -5,7 +5,6 @@
   "scripts": {
     "setup": "mkdir -p ios/Frameworks && curl -sS https://origincache.facebook.com/developers/resources/?id=facebook-ios-sdk-current.zip > ios/Frameworks/fbsdk.zip && unzip ios/Frameworks/fbsdk.zip -d ios/Frameworks",
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "dev": "react-native run-ios",
     "test": "jest"
   },
   "dependencies": {
@@ -16,8 +15,7 @@
     "react-apollo": "^0.13.2",
     "react-native": "0.42.0",
     "react-native-device-info": "^0.9.9",
-    "react-native-fbsdk": "^0.5.0",
-    "redux": "^3.6.0"
+    "react-native-fbsdk": "^0.5.0"
   },
   "jest": {
     "preset": "react-native"

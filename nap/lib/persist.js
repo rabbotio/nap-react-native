@@ -9,16 +9,8 @@ class persist {
     return AsyncStorage.setItem('sessionToken', value)
   }
 
-  static willGetAccessToken() {
-    return AsyncStorage.getItem('accessToken')
-  }
-
-  static willSetAccessToken(value) {
-    return AsyncStorage.setItem('accessToken', value)
-  }
-
   static willRemoveSessionToken(value) {
-    return AsyncStorage.removeItem('accessToken', value)
+    return AsyncStorage.removeItem('sessionToken')
   }
 }
 

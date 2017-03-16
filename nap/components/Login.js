@@ -6,18 +6,19 @@ import device from '../lib/device'
 import {
   View,
   Button,
-  TextTextInput,
+  Text,
 } from 'react-native'
 
-const Login = ({ loginWithFacebook }) => {
+const Login = ({ loginWithFacebook, accessToken }) => {
 
   const deviceInfo = device.info()
-  const accessToken = "EAABnTrZBSJyYBAKvcWAcAOUwt07ZCVxhCYQwKKWFZAwtOhsGYZAc7olL04W8eJTlxBeZCmxCQO9kYZA4kKtTD0zmZChhb5hEoZBl7JHT0Rx39uGP8ow2X9vGoTLFZCm4Dd0NFvH0qsHXNYinsOKjszfSJVOj3DZChv0MNszawr1le8O0ToqI3Ak9Jr8X3X6imEtvJ2q8ceeVh5Ux1rSbgypRQNRDjlredVXpIZD"
+  if (!accessToken || accessToken === '') {
+    return <Text>No accessToken</Text>
+  }
+
   loginWithFacebook(deviceInfo, accessToken)
 
-  return (
-    <Text>...</Text>
-  )
+  return <Text>sign in with : {accessToken}</Text>
 }
 
 const loginWithFacebook = gql`
@@ -37,7 +38,8 @@ mutation loginWithFacebook($deviceInfo: String!, $accessToken: String!) {
 `
 
 Login.propTypes = () => ({
-  loginWithFacebook: React.PropTypes.func.isRequired
+  loginWithFacebook: React.PropTypes.func.isRequired,
+  accessToken: React.PropTypes.string.isRequired,
 })
 
 export default graphql(loginWithFacebook, {
@@ -48,7 +50,6 @@ export default graphql(loginWithFacebook, {
         userProfile: (previousResult, { mutationResult }) => {
           // Keep session
           persist.willSetSessionToken(mutationResult.data.loginWithFacebook.sessionToken)
-          alert(mutationResult.data.loginWithFacebook.sessionToken)
 
           // Provide user
           return mutationResult.data.loginWithFacebook

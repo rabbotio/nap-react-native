@@ -2,13 +2,17 @@ import { gql, graphql } from 'react-apollo'
 import persist from '../lib/persist'
 import React from 'react'
 
+import {
+  Button,
+} from 'react-native'
+
 const Logout = ({ logout }) => {
   return (
-    <Button onClick={logout}>LogOut</Button>
+    <Button onPress={logout} title='LogOut'></Button>
   )
 }
 
-const loginWithFacebook = gql`
+const logout = gql`
 mutation logout {
   logout {
     loggedOutAt
@@ -24,13 +28,13 @@ Logout.propTypes = () => ({
   logout: React.PropTypes.func.isRequired
 })
 
-export default graphql(loginWithFacebook, {
+export default graphql(logout, {
   props: ({ mutate }) => ({
     logout: () => mutate({
       updateQueries: {
         userProfile: () => {
           // Clear session
-          persist.willClearSessionToken()
+          persist.willRemoveSessionToken()
 
           // Provide no user
           return { user: null, errors: [] }
