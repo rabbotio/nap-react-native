@@ -25,8 +25,12 @@ YOUR_APP_NAME=foo YOUR_FACEBOOK_APP_ID=113587919136550 . builder.sh
 ```
 
 # To upgrade
-```
+```shell
 react-native upgrade
+
+# Relink after upgrade
+react-native link react-native-fbsdk
+react-native link react-native-device-info
 ```
 
 # To config
