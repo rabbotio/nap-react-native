@@ -23,6 +23,12 @@ Will create new project with NAP authen, Please do make sure you have [React Nat
 ```shell
 YOUR_APP_NAME=foo YOUR_FACEBOOK_APP_ID=113587919136550 . builder.sh
 ```
+
+# To upgrade
+```
+react-native upgrade
+```
+
 # To config
 Edit `index.ios.js` to match your need.
 ```js
@@ -34,11 +40,6 @@ const nap = new NAPApp({
 })
 ```
 
-# To upgrade
-```
-react-native upgrade
-```
-
-TODO
+# TODO
 - [ ] Android support
 - [ ] Test

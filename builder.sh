@@ -4,7 +4,7 @@ cd $YOUR_APP_NAME
 # Facebook SDK
 react-native install react-native-fbsdk
 react-native link react-native-fbsdk
-# Builder from Facebook (which is failed to load fbsdk.zip)
+# Builder from Facebook
 # https://github.com/facebook/react-native-fbsdk/blob/master/ios_setup.js
 cp ../ios_setup.js ./
 npm i -D plist xcode adm-zip
@@ -20,8 +20,10 @@ cp ../nap/app.json ./
 cp ../nap/index.ios.js ./
 cp ../nap/.env ./
 # Library
-npm i -D dotenv
 npm i -S apollo-client graphql graphql-tag react-apollo react-native-device-info
 npm i
+# Link
+# https://github.com/rebeccahughes/react-native-device-info
+react-native link react-native-device-info
 # Run ios
 node node_modules/react-native/local-cli/cli.js run-ios
