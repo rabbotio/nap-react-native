@@ -3,3 +3,4 @@ Podfile.lock
 Pods/
 node_modules/
 ios/Frameworks
+npm-debug.log

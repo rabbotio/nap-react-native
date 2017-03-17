@@ -119,3 +119,4 @@ plistObject.LSApplicationQueriesSchemes = ['fbapi', 'fb-messenger-api', 'fbauth2
 plistObject.NSLocationWhenInUseUsageDescription = '';
 fs.writeFileSync(plistFilePath, plist.build(plistObject));
 console.log('Finished updating ' + plistFilePath);
+process.exit(1)

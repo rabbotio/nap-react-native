@@ -1,44 +1,44 @@
 # nap-react-native
 [WIP] React Native mobile boilerplate
 
-# Setup
+# To develop server
+Will run [NAP](https://github.com/rabbotio/nap) at`localhost:3000`
 ```shell
-npm run setup
+git pull https://github.com/rabbotio/nap.git
+cd nap
+npm run up
 ```
 
-# To try
-> Run [NAP](https://github.com/rabbotio/nap) at localhost:3000 and then
-> Run client on simulator.
+# To develop client
+Will run`react-native` on simulator.
 ```shell
-react-native run-ios
+git pull https://github.com/rabbotio/nap-react-native.git
+cd nap
+npm run setup
+npm run ios
 ```
 
 # To create new project
+Will create new project with NAP authen, Please do make sure you have [React Native](https://facebook.github.io/react-native/docs/getting-started.html#getting-started) installed
 ```shell
-mkdir ~/YOUR_APP
-cp ./nap/ios_setup.js ~/YOUR_APP
-cd ~/YOUR_APP
-npm i -D plist xcode adm-zip
-node ios_setup.js YOUR_FACEBOOK_APP_ID YOUR_APP
-npm i
-npm run setup
-react-native run-ios
+YOUR_APP_NAME=foo YOUR_FACEBOOK_APP_ID=113587919136550 . builder.sh
+```
+# To config
+Edit `index.ios.js` to match your need.
+```js
+import NAPApp from './components/NAPApp'
+
+const nap = new NAPApp({
+  name: 'foo',                          // Change name to match your app
+  uri: 'http://localhost:3000/graphql'  // Change GraphQL endpoint here
+})
 ```
 
-# Note
+# To upgrade
 ```
-# Mutation
-mutation loginWithFacebook($deviceInfo: String, $accessToken: String!) {
-  loginWithFacebook(deviceInfo: $deviceInfo, accessToken: $accessToken) {
-    user {
-      name
-    }
-  }
-}
+react-native upgrade
+```
 
-# Variables
-{
-  "deviceInfo": "bar",
-  "accessToken": "FAABnTrZBSJyYBAKvcWAcAOUwt07ZCVxhCYQwKKWFZAwtOhsGYZAc7olL04W8eJTlxBeZCmxCQO9kYZA4kKtTD0zmZChhb5hEoZBl7JHT0Rx39uGP8ow2X9vGoTLFZCm4Dd0NFvH0qsHXNYinsOKjszfSJVOj3DZChv0MNszawr1le8O0ToqI3Ak9Jr8X3X6imEtvJ2q8ceeVh5Ux1rSbgypRQNRDjlredVXpIZD"
-}
-```
+TODO
+- [ ] Android support
+- [ ] Test

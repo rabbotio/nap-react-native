@@ -44,7 +44,7 @@ const NAPApp = (options) => {
         <App />
       </ApolloProvider>)
   }
-  AppRegistry.registerComponent('nap', () => nap)
+  AppRegistry.registerComponent(options.name, () => nap)
 }
 
 export default NAPApp
