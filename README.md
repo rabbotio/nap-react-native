@@ -10,6 +10,14 @@ npm run setup
 npm run up
 ```
 
+# To config server (required for Facebook login)
+> Go to your Facebook app page and fill below in `.env` file.
+```
+FACEBOOK_APP_ID=...
+FACEBOOK_APP_SECRET=...
+FACEBOOK_SCOPE=email,user_location
+```
+
 # To develop client
 Will run`react-native` on simulator.
 ```shell
