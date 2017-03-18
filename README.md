@@ -6,6 +6,7 @@ Will run [NAP](https://github.com/rabbotio/nap) at`localhost:3000`
 ```shell
 git pull https://github.com/rabbotio/nap.git
 cd nap
+npm run setup
 npm run up
 ```
 
