@@ -27,7 +27,7 @@ npm run setup
 npm run ios
 ```
 
-# To create new project
+# To create new project (experimental)
 Will create new project with NAP authen, Please do make sure you have [React Native](https://facebook.github.io/react-native/docs/getting-started.html#getting-started) installed
 ```shell
 YOUR_APP_NAME=foo YOUR_FACEBOOK_APP_ID=113587919136550 . builder.sh

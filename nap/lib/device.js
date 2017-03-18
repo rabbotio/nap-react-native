@@ -1,11 +1,11 @@
 import DeviceInfo from 'react-native-device-info'
-module.exports.info = () => JSON.stringify({
+module.exports.info = () => ({
   // Devices
   deviceInfo: [
     DeviceInfo.getBrand(),
     DeviceInfo.getModel(),
     DeviceInfo.getSystemName(),
-  ].join(' '),
+  ].join(','),
   locale: DeviceInfo.getDeviceLocale(),
   country: DeviceInfo.getDeviceCountry(),
   timezone: DeviceInfo.getTimezone(),

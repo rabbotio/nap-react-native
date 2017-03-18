@@ -11,19 +11,19 @@ import {
 
 const Login = ({ loginWithFacebook, accessToken }) => {
 
-  const deviceInfo = device.info()
+  const info = device.info()
   if (!accessToken || accessToken === '') {
     return <Text>No accessToken</Text>
   }
 
-  loginWithFacebook(deviceInfo, accessToken)
+  loginWithFacebook(info.deviceInfo, accessToken, info.locale, info.country, info.timezone, info.deviceName)
 
   return <Text>sign in with : {accessToken}</Text>
 }
 
 const loginWithFacebook = gql`
-mutation loginWithFacebook($deviceInfo: String!, $accessToken: String!) {
-  loginWithFacebook(deviceInfo: $deviceInfo, accessToken: $accessToken) {
+mutation loginWithFacebook($deviceInfo: String!, $accessToken: String!, $locale: String, $country: String, $timezone: String, $deviceName: String) {
+  loginWithFacebook(deviceInfo: $deviceInfo, accessToken: $accessToken, locale: $locale, country: $country, timezone: $timezone, deviceName: $deviceName) {
     sessionToken
     user {
       _id
@@ -44,8 +44,8 @@ Login.propTypes = () => ({
 
 export default graphql(loginWithFacebook, {
   props: ({ mutate }) => ({
-    loginWithFacebook: (deviceInfo, accessToken) => mutate({
-      variables: { deviceInfo, accessToken },
+    loginWithFacebook: (deviceInfo, accessToken, locale, country, timezone, deviceName) => mutate({
+      variables: { deviceInfo, accessToken, locale, country, timezone, deviceName },
       updateQueries: {
         userProfile: (previousResult, { mutationResult }) => {
           // Keep session
