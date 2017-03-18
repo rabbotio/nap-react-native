@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "setup": "mkdir -p ios/Frameworks && curl -sS https://origincache.facebook.com/developers/resources/?id=facebook-ios-sdk-current.zip > ios/Frameworks/fbsdk.zip && unzip ios/Frameworks/fbsdk.zip -d ios/Frameworks",
+    "setup": "npm i && mkdir -p ios/Frameworks && curl -sS https://origincache.facebook.com/developers/resources/?id=facebook-ios-sdk-current.zip > ios/Frameworks/fbsdk.zip && unzip ios/Frameworks/fbsdk.zip -d ios/Frameworks",
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios",
     "test": "jest"
