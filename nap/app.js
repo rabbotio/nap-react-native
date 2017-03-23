@@ -78,6 +78,7 @@ export default class nap extends Component {
         <Text>{this.state.accessToken}</Text>
         <UserProfile accessToken={this.state.accessToken}/>
         <LoginButton
+          publishPermissions={["email"]}
           onLoginFinished={this.onLoginFinished.bind(this)}
           onLogoutFinished={() => this.setState({ isLoggedIn: false })} />
       </View>
