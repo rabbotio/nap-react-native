@@ -2,7 +2,7 @@
 [WIP] React Native mobile boilerplate
 
 # To develop server
-Will run [NAP](https://github.com/rabbotio/nap) at`localhost:3000`
+Will run [NAP](https://github.com/rabbotio/nap) at `localhost:3000`
 ```shell
 git pull https://github.com/rabbotio/nap.git
 cd nap
@@ -11,7 +11,10 @@ npm run up
 ```
 
 # To config server (required for Facebook login)
-> Go to your Facebook app page and fill below in `.env` file.
+1. Go to your Facebook app page setting e.g. `https://developers.facebook.com/apps/`113587919136550`/settings/`
+1. Add web platform with `http://localhost:3000/auth/facebook`
+1. Follow through [Facebook Login for iOS - Quickstart](https://developers.facebook.com/docs/facebook-login/ios)
+1. Copy app `FACEBOOK_APP_ID` and `FACEBOOK_APP_SECRET` and fill them in `.env` file.
 ```
 FACEBOOK_APP_ID=...
 FACEBOOK_APP_SECRET=...
@@ -19,7 +22,7 @@ FACEBOOK_SCOPE=email,user_location
 ```
 
 # To develop client
-Will run`react-native` on simulator.
+Will run `react-native` on simulator.
 ```shell
 git pull https://github.com/rabbotio/nap-react-native.git
 cd nap
@@ -54,5 +57,6 @@ const nap = new NAPApp({
 ```
 
 # TODO
+- [ ] Automate som e remain process
 - [ ] Android support
 - [ ] Test
