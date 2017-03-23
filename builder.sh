@@ -18,6 +18,7 @@ cp -r ../nap/components ./
 cp ../nap/app.js ./
 cp ../nap/app.json ./
 cp ../nap/index.ios.js ./
+cp ../nap/index.android.js ./
 # Library
 npm i -S apollo-client graphql graphql-tag react-apollo react-native-device-info
 npm i

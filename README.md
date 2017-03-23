@@ -57,6 +57,6 @@ const nap = new NAPApp({
 ```
 
 # TODO
-- [ ] Automate som e remain process
+- [ ] Automate some remain process
 - [ ] Android support
 - [ ] Test
